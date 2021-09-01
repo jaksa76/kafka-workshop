@@ -1,0 +1,464 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow|Open+Sans:300" />
+        <link rel="stylesheet" href="node_modules/impress.js/css/impress-common.css" />
+        <link rel="stylesheet" href="node_modules/impress.js/css/impress-demo.css" />
+        
+		<style>
+			.nomnoml {
+				background-color: transparent;
+				width: fit-content;
+				margin: auto;
+				margin-top: 50px;
+				margin-bottom: 50px;
+				padding: 50px;
+			}
+			
+            div, h1, h2 {
+               font-family: Arial, Helvetica, sans-serif;
+               text-align: center;
+            }
+            
+            h1 {
+                font-size: 72px;
+            }
+		</style>
+    </head>
+    <body lass="impress-not-supported">
+        <div class="fallback-message">
+            <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+            <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+        </div>
+                <!-- <div id="impress" data-autoplay="1" data-transition-duration="300"> -->
+        <div id="impress">
+            <div id="background" class="step skip" data-scale="4" data-z="-1000">
+                <div class="nomnoml" style="opacity: 10%;">
+                    [kafka]->[a]
+                    [kafka]->[f]
+                    [a]->[b]
+                    [c]->[b]
+                    [d]->[b]
+                    [e]->[b]
+                    [f]->[b]
+                    [g]->[b]
+                    [a]->[c]
+                    [c]->[c]
+                    [d]->[c]
+                    [e]->[c]
+                    [f]->[c]
+                    [a]->[monitor 1]
+                    [c]->[monitor 1]
+                    [d]->[monitor 1]
+                    [e]->[monitor 1]
+                    [f]->[monitor 1]
+                    [g]->[monitor 1]
+                    [a]->[monitor 2]
+                    [c]->[monitor 2]
+                    [d]->[monitor 2]
+                    [e]->[monitor 2]
+                    [f]->[monitor 2]
+                    [g]->[monitor 2]
+                    [a]->[monitor 3]
+                    [c]->[monitor 3]
+                    [d]->[monitor 3]
+                    [e]->[monitor 3]
+                    [f]->[monitor 3]
+                    [g]->[monitor 3]
+                    [monitor 1] -> [monitor 2]
+                    [monitor 2] -> [monitor 3]
+                    [monitor 3] -> [a2]
+                    [a2]->[b3]
+                    [c2]->[b3]
+                    [d2]->[b3]
+                    [e2]->[b3]
+                    [f2]->[b3]
+                    [g2]->[b3]
+                    [a2]->[c3]
+                    [c2]->[c3]
+                    [d2]->[c3]
+                    [e2]->[c3]
+                    [f2]->[c3]
+                    [a3]->[b4]
+                    [c3]->[b4]
+                    [d3]->[b4]
+                    [e3]->[b4]
+                    [f3]->[b4]
+                    [g3]->[b4]
+                    [a3]->[c4]
+                    [c3]->[c4]
+                    [d3]->[c4]
+                    [e3]->[c4]
+                    [f3]->[c4]
+                    [c4]->[c5]
+                    [c5]->[c6]
+                    [c6]->[c7]
+                    [c7]->[c8]
+                    [a2]->[c8]
+                    [c2]->[c8]
+                    [d2]->[c8]
+                    [e2]->[c8]
+                    [f2]->[c8]            
+                </div>
+            </div>
+
+            <div id="title" class="step" data-scale="1" data-rel-x="-2000" data-rel-y="-1500" data-z="0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                <p>Introduction to</p>
+				<h1>Apache Kafka</h1>
+            </div>
+
+            <div id="contents" class="step" data-rel-x="0" data-rel-y="1000">
+                <div class="nomnoml">
+                    [{actor} ' '] -> [Content |
+                        [Introduction to Messaging] -> [Basic Kafka Concepts]
+                        [Basic Kafka Concepts] -> [How to Use Kafka]
+                        [How to Use Kafka] -> [How Kafka achieves Scalability]
+                        [How Kafka achieves Scalability] -> [How Kaka Achieves Fault Tolerance]
+                        [How Kaka Achieves Fault Tolerance] -> [Transactions]]
+                </div>
+            </div>
+            <div id="contents-will-not-cover" class="step" data-scale="0.05" data-rel-y="330" >
+                <div class="nomnoml">
+#direction:right
+                    [We will not Cover|                
+                        [Kafka Streams]
+                        [Architectural Patterns]
+                        [Kafka Consistency]]
+                </div>
+            </div>
+        
+            <div id="rpc-vs-messaging" class="step" data-rel-y="800">                
+                <h1> RPC vs Messaging</h1>
+            </div>
+            <div class="step"  data-rel-x="-220"  data-rel-y="150" data-scale=".3">
+                <div class="nomnoml">#direction: right
+                    [RPC | 
+                        [The caller blocks while the callee performs the operation]
+                        [Better suited where consistency is required]
+                        [Used for ensuring operation is performed]
+                        [Bidirectional information flow (callee can return value)]
+                    ]
+                </div>	
+            </div>
+            <div class="step" data-rel-x="400" data-rel-y="0" data-scale=".3">
+                <div class="nomnoml">#direction: right
+                    [Messaging |                    
+                        [Asynchronous (fire & forget)]
+                        [Promotes loose coupling]
+                        [Used for notifications of something happening]
+                        [Unidirectional information flow]
+                    ]                    
+                </div>
+            </div>
+        
+            <div id="types-of-messaging" class="step" data-rel-x="1000" data-y="-1000" data-scale="1">
+                <h1>Types of Messaging</h1>
+            </div>
+            <div class="step" data-rel-x="-200" data-rel-y="100" data-scale=".2">
+                <div class="nomnoml">
+                    [Point to Point |
+                        [sender 1] -> [receiver]
+                        [sender 2] -> [receiver]]
+                    [Point to Point]--[direct communication]
+                    [Point to Point]--[both parties need to be
+                        online at the same time]
+                </div>	                						
+            </div>
+            <div class="step" data-rel-x="200" data-rel-y="0" data-scale=".2">
+                <div class="nomnoml left">
+                    [Message Queue |
+                    [sender 1] -> [queue]
+                    [sender 2] -> [queue]
+                    [queue] -> [receiver]]
+                    [Message Queue]--[requires 3rd party]
+                    [Message Queue]--[layer of indirection]
+                </div>
+            </div>
+            <div class="step" data-scale=".2">                
+                <div class="nomnoml" style="padding: 50px">
+                    [Publish Subscribe|
+                        [sender 1] -> [topic]
+                        [sender 2] -> [topic]
+                        [topic] -> [receiver 1]
+                        [topic] -> [receiver 2]
+                        [topic] -> [receiver 3]]
+                    [Publish Subscribe]--[multiple Receivers]
+                    [Publish Subscribe]--[best for loose coupling]
+                </div>
+            </div>
+            
+            <div class="step" data-rel-z="100" data-scale=".2" data-rotate-y="90">                
+                <div class="nomnoml" style="padding: 50px">
+#direction: right
+                    [Point to Point] -> [ZeroMQ]
+                    [Message Queue]->[TIBCO]
+                    [Publish Subscribe]->[TIBCO]
+                    [Message Queue]->[MQSeries]
+                    [Publish Subscribe]->[MQSeries]
+                    [Message Queue]->[ActiveMQ]
+                    [Publish Subscribe]->[ActiveMQ]
+                    [Message Queue]->[RabbitMQ]
+                    [Publish Subscribe]->[RabbitMQ]
+                    [Publish Subscribe]->[Kafka]
+                </div>
+            </div>
+            
+            <div id="traditional-vs-kafka" class="step" data-rel-y="800">                
+                <h1>Traditional MQ Brokers<br>vs<br>Kafka</h1>
+            </div>
+            <div class="step"  data-rel-x="-200"  data-rel-y="250" data-rel-z="500" data-scale=".5">
+                <div class="nomnoml">#direction: right
+                    [Traditional | 
+                        Strong consistency
+                        Messages are ordered
+                        Integration with enterprise software
+                    ]
+                </div>	
+            </div>
+            <div class="step" data-rel-x="400" data-rel-y="0" data-rel-z="0" data-scale=".5">
+                <div class="nomnoml">#direction: right
+                    [Kafka |                    
+                        Massive throughput
+                        Better scalability
+                        Strong-ish consistency
+                        Order is not guaranteed
+                        Custom protocol                        
+                    ]                    
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="1000" data-z="0"><h1>Kafka Concepts</h1></div>
+            <div class="step" data-rel-x="-400" data-rel-y="200" data-rel-z="300" data-scale=".2">
+                <div class="nomnoml">
+                    [Record|timestamp; key; value]
+                </div>
+            </div>
+            <div class="step" data-rel-x="200" data-rel-y="0" data-rel-z="0" data-scale=".2">
+                <div class="nomnoml">
+                    [Topic|
+                        [Record1]|
+                        [Record2]|
+                        [Record3]|
+                        [Record4]|
+                        [Record5]|
+                        ...]
+                </div>
+            </div>
+            <div class="step" data-scale=".2">
+                <div class="nomnoml">
+#direction: right                
+                    [Topic|
+                    [Record1]|
+                    [Record2]|
+                    [Record3]|
+                    [Record4]|
+                    [Record5]|
+                    ...]
+                    [{database}disk|
+                        [Log|
+                            [Record1]|
+                            [Record2]|
+                            [Record3]|
+                            [Record4]|
+                            [Record5]|
+                            ...]
+                    ]
+                    [Topic]--[disk]
+                </div>
+            </div>
+            <div class="step" data-scale=".2">
+                <div class="nomnoml" style="padding: 0;">
+#direction: right
+#fontSize: 18
+                    [Topic|
+                    [Record1]|
+                    [Record2]|
+                    [Record3]|
+                    ...]
+                    [Producer 1] -> [Topic]                   
+                    [Producer 1 | producers append 
+                    records at the end]
+                    [Topic] -> [Consumer 1| consumers...]
+                    [Topic] -> [Consumer 2| ...read...]
+                    [Topic] -> [Consumer 3| ...at their 
+                    own pace]
+                </div>
+                <div style="font-size: 24;">
+                    Each consumer tracks its offset<br>
+                    Records are stored for 7 days by default
+                </div>
+            </div>
+            <div class="step" data-scale=".2">
+                <div class="nomnoml">
+                    [Kafka Cluster |
+                        [broker 1]-[broker 2]
+                        [broker 2]-[broker 3]
+                        [broker 3]-[broker 1]                        
+                        [zookeeper 1]-[zookeeper 2]
+                        [zookeeper 2]-[zookeeper 3]
+                        [zookeeper 3]-[zookeeper 1]
+                    ]
+                    [Producer 1] -> [Kafka Cluster]
+                    [Producer 2] -> [Kafka Cluster]
+                    [Kafka Cluster] -> [Consumer 1]
+                    [Kafka Cluster] -> [Consumer 2]
+                    [Kafka Cluster] -> [Consumer 3]
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="2000">
+                <h1>Partitions and Replication</h1>
+                <div class="nomnoml" style="margin: 0;">
+                    [{table} cluster |
+                    [broker 1| [P1]] |
+                    [broker 2| [P1] 
+                    [P2]] ||
+                    [broker 3| [P2]] |
+                    [broker 4| [P1]
+                    [P2]]]
+                </div>
+            </div>
+            <div class="step" data-rel-x="800" data-rel-y="50" data-scale="1.6">
+                <div style="font-size: 30; text-align: left; margin-left: 100;">records of each topic are saved in a log<br>
+                    a <b>log</b> is a partially ordered, persistent set of Records<br>
+                    logs are divided in <b>partitions</b><br>
+                    each partition can have several <b>replicas</b><br>
+                    records in a partition are totally ordered<br>
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="2000">
+                <h1>Consumer Groups</h1>
+                <div class="nomnoml" style="margin: 0;">
+#direction: right                    
+#fontSize: 18
+                    [topic]->[consumer group 1]
+                    [topic]->[consumer group 2]
+                    [consumer group 1| [consumer 1]
+                    [consumer 2]]
+                    [consumer group 2| [consumer 1]
+                    [consumer 2]]
+                </div>
+            </div>
+            <div class="step" data-rel-x="600" data-rel-y="50" data-scale="1.6">
+                <div style="font-size: 20; text-align: left; margin-left: 100;">
+                    consumers can be “clustered”<br>
+                    a <b>consumer group</b> acts as a single traditional consumer<br>
+                    consumers are allowed to choose partition and offset<br>
+                    typically Kafka assigns a consumer for each partition<br>
+                    multiple partitions can be assigned to the same Consumer<br>
+                    consumers may not have a partition assigned<br>
+                    each message will be received by each Consumer Group<br>
+                    only one consumer per group will process a given message<br>
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="2000">
+                <h1>Producers</h1>
+                <div class="nomnoml" style="margin: auto;">
+                    [choosing a partition | 
+                        [producer specified] -> [message hash]
+                        [message hash] -> [last used]
+                        [last used] -> [automatic selection]
+                    ]
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="2000">
+                <div class="nomnoml">
+                [TODO|
+                partitions and replication
+                consumer groups                
+                idempotence
+                transactions
+                consumer timeout]
+                </div>
+            </div>
+            
+            <div class="step">       
+                <div class="nomnoml">
+                    create topic
+                </div>
+            </div>
+            <div class="step">
+                <div class="nomnoml">
+                    Write a producer and a consumer
+                    publisher publishes birth (name, date, country)
+                    consumer collects statistics per country
+                </div>
+            </div>
+            <div class="step">                
+                <div class="nomnoml">Consumer Groups</div>
+                Gathering results from consumer group
+            </div>
+            <div class="step">       
+                <div class="nomnoml">
+                    Transactions
+                </div>
+            </div>
+            <div class="step">
+                <div class="nomnoml">
+                Request Response (anti)pattern
+                anonymous life expectancy
+                </div>
+            </div>
+            <div class="step">
+                <div class="nomnoml">
+                Aggregation
+                reconstructing identity of life expectancy
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="6000">
+                <h1>Chaos Engineering</h1>
+                <div class="nomnoml" style="padding: 50px">
+                    [producer 1] -> [chaos-test]
+                    [producer 2] -> [chaos-test]
+                    [producer 3] -> [chaos-test]
+                    [chaos-test]->[consumer 1]
+                    [chaos-test]->[consumer 2]
+                    [chaos-test]->[consumer 3]
+                    [consumer 1] -> [chaos-results]
+                    [consumer 2] -> [chaos-results]
+                    [consumer 3] -> [chaos-results]
+                    [chaos-results] -> [results collector]							
+                </div>		
+            </div>
+            
+            <div class="step" data-x="0" data-y="0" data-z="5000">
+                <h1 class="substep">Questions?</h1>
+            </div>
+            
+            <div class="hint">
+                <p>Use a spacebar or arrow keys to navigate. <br/>
+                   Press 'P' to launch speaker console.</p>
+            </div>
+        </div>
+        <div id="impress-toolbar" style="opacity: 30%;"></div>
+        <script src="node_modules/impress.js/js/impress.js"></script>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
+        
+        <script src="node_modules/graphre/dist/graphre.js"></script>
+		<script src="node_modules/nomnoml/dist/nomnoml.js"></script>
+
+		<script lang="javascript">		
+            function renderNomnomlDiagrams() {
+                var defaultStyle = [
+                    "#direction: down",
+                    "#fill: transparent",
+                    "#stroke: #444444",	
+                    "#fontSize: 24"			
+                ].join("\n");
+
+                for (var element of document.getElementsByClassName("nomnoml")) {
+                    var source = defaultStyle + "\n" + element.textContent;
+                    source = source.replaceAll("{", "<").replaceAll("}", ">"); // we must use {} instead of <> for nomnoml styles because of html
+                    console.log(source);
+                    element.innerHTML = nomnoml.renderSvg(source);
+                }
+            }
+            
+			renderNomnomlDiagrams();
+            impress().init();
+        </script>
+    </body>
+</html>

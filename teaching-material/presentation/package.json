@@ -1,0 +1,17 @@
+{
+  "name": "kafka-presentation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo OK"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphre": "^0.1.3",
+    "impress.js": "^1.1.0",
+    "jquery": "^3.6.0",
+    "nomnoml": "^1.4.0"
+  }
+}
