@@ -1,33 +1,37 @@
+{{range $i, $user := .Values.users}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dev-env-deployment
+  name: {{$user}}-dev-env-deployment
   labels:
-    app: dev-env
+    app: {{$user}}-dev-env
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dev-env
+      app: {{$user}}-dev-env
   template:
     metadata:
       labels:
-        app: dev-env
+        app: {{$user}}-dev-env
     spec:
       containers:
-      - name: dev-env
+      - name: {{$user}}-dev-env
         image: jaksa76/dev-env
         imagePullPolicy: Always
         ports:
         - containerPort: 22
         - containerPort: 8080
----
+---        
+{{end}}
+
+{{range $i, $user := .Values.users}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: dev-env
+  name: {{$user}}-dev-env
   labels:
-    app: dev-env
+    app: {{$user}}-dev-env
 spec:
   type: LoadBalancer
   ports:
@@ -38,4 +42,6 @@ spec:
     name: ssh
     protocol: TCP
   selector:
-    app: dev-env
+    app: {{$user}}-dev-env
+---    
+{{end}}
