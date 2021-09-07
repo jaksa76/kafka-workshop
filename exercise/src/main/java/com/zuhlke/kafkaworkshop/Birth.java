@@ -17,6 +17,6 @@ public class Birth {
     
     public static Birth parse(String s) {
         String[] parts = s.split(",");
-        return new Birth(parts[0], new Date(Long.valueOf(parts[1])), parts[2]);
+        return new Birth(parts[0], new Date(Long.valueOf(parts[2])), parts[1]);
     }
 }

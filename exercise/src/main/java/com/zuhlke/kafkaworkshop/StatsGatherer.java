@@ -15,14 +15,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StatsGatherer extends Thread {
-    private static final String BOOTSTRAP_SERVERS = "my-release-kafka.kafka:9092";
+    private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private Map<String, Long> birthsByCountry = new HashMap<>();
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
         "bootstrap.servers", BOOTSTRAP_SERVERS,
-        // "group.id", "chaos-consumer-group",
+        "group.id", "stats-gathering",
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "enable.auto.commit", "true",
