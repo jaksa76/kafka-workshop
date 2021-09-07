@@ -13,6 +13,13 @@
         },
         {
             "type": "java",
+            "name": "Launch StatsGatherer",
+            "request": "launch",
+            "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "projectName": "kafka-workshop"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

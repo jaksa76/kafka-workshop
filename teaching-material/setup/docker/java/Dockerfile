@@ -1,4 +1,4 @@
-FROM maven:3.8.2-openjdk-8
+FROM maven:3.8.2-openjdk-11
 
 ARG code_server_version=3.11.1
 

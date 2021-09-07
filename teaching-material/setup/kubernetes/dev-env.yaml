@@ -31,11 +31,11 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 22
-    name: ssh
-    protocol: TCP
   - port: 8080
     name: http
+    protocol: TCP
+  - port: 22
+    name: ssh
     protocol: TCP
   selector:
     app: dev-env
