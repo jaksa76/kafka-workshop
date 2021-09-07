@@ -14,7 +14,7 @@ public class BirthAnnouncer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(BirthAnnouncer.class);
     private WorldHealthOrganizationFacade who = new WorldHealthOrganizationFacade();
     
-    private static final String BOOTSTRAP_SERVERS = "my-release-kafka.kafka:9092";
+    private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final String TOPIC = "births";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
         "bootstrap.servers", BOOTSTRAP_SERVERS,
@@ -37,6 +37,6 @@ public class BirthAnnouncer extends Thread {
     
     private void announceBirth(Birth birth) {
         log.info("{} was born in {} on {}", birth.name, birth.country, birth.time.toString());        
-        // producer.send(new ProducerRecord<String, String>(topic, birth.toString()));
+        producer.send(new ProducerRecord<String, String>(TOPIC, birth.toString()));
     }
 }

@@ -5,6 +5,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -15,14 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StatsGatherer extends Thread {
-    private static final String BOOTSTRAP_SERVERS = "my-release-kafka.kafka:9092";
+    private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private Map<String, Long> birthsByCountry = new HashMap<>();
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
         "bootstrap.servers", BOOTSTRAP_SERVERS,
-        // "group.id", "chaos-consumer-group",
+        "group.id", "stats-gathering",
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "enable.auto.commit", "true",
@@ -54,9 +55,10 @@ public class StatsGatherer extends Thread {
     }
     
     private void printTopTen() {
+        Comparator<Map.Entry<String, Long>> comparator = comparing(en -> en.getValue());
         log.info("Top 10 countries by babies born:");
         birthsByCountry.entrySet().stream()
-            .sorted(comparing(en -> en.getValue()))
+            .sorted(comparator.reversed())
             .limit(10)
             .forEach(en -> log.info(en.getValue() + ":\t" + en.getKey()));
     }

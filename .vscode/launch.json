@@ -6,11 +6,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch StatsGatherer",
+            "request": "launch",
+            "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "projectName": "kafka-workshop"
+        },
+        {
+            "type": "java",
             "name": "Launch BirthAnnouncer",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.BirthAnnouncer",
             "projectName": "kafka-workshop"
-        },
+        },        
         {
             "type": "java",
             "name": "Launch StatsGatherer",
@@ -23,6 +30,12 @@
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Compound",
+            "configurations": ["Launch BirthAnnouncer", "Launch StatsGatherer"]
         }
     ]
 }
