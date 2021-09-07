@@ -1,24 +1,28 @@
 package com.zuhlke.kafkaworkshop;
 
-import static java.util.Comparator.comparing;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
+import com.github.javafaker.Faker;
+import com.zuhlke.kafkaworkshop.utils.Birth;
+import com.zuhlke.kafkaworkshop.utils.BirthStats;
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StatsGatherer extends Thread {
     private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
-    private Map<String, Long> birthsByCountry = new HashMap<>();
+    private BirthStats stats = new BirthStats();
+    private String name = Faker.instance().funnyName().name();
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
@@ -30,8 +34,14 @@ public class StatsGatherer extends Thread {
         "auto.commit.interval.ms", "1000"
     ));
 
+    private static final String STATS_TOPIC = "birth.stats";
+    private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
+        "bootstrap.servers", BOOTSTRAP_SERVERS,
+        "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
+        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
+    ));
+
     public StatsGatherer() {
-        
         // periodically print statistics
         Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(() -> printTopTen(), 0, 10, SECONDS);
     }
@@ -45,21 +55,13 @@ public class StatsGatherer extends Thread {
         consumer.subscribe(Arrays.asList(TOPIC));
         while (true) {
             for (ConsumerRecord<String, String> record : consumer.poll(Duration.ofMillis(100))) {
-                addBirth(Birth.parse(record.value()));
+                stats.addBirth(Birth.parse(record.value()));
             }
         }
     }
-    
-    private void addBirth(Birth birth) {
-        birthsByCountry.compute(birth.country, (k, v) -> v == null ? 1 : v + 1);
-    }
-    
+
     private void printTopTen() {
-        Comparator<Map.Entry<String, Long>> comparator = comparing(en -> en.getValue());
-        log.info("Top 10 countries by babies born:");
-        birthsByCountry.entrySet().stream()
-            .sorted(comparator.reversed())
-            .limit(10)
-            .forEach(en -> log.info(en.getValue() + ":\t" + en.getKey()));
+        log.info("Top 10 countries by babies born:\n" + stats.printTopTen());
+        producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
     }
 }

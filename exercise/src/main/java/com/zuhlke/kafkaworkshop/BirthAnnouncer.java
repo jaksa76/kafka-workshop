@@ -1,8 +1,8 @@
 package com.zuhlke.kafkaworkshop;
 
 import java.util.Map;
-import java.util.Properties;
 
+import com.zuhlke.kafkaworkshop.utils.Birth;
 import com.zuhlke.kafkaworkshop.utils.WorldHealthOrganizationFacade;
 
 import org.apache.kafka.clients.producer.KafkaProducer;

@@ -6,23 +6,37 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch StatsGatherer",
+            "name": "Launch BirthAnnouncer",
+            "request": "launch",
+            "mainClass": "com.zuhlke.kafkaworkshop.BirthAnnouncer",
+            "projectName": "kafka-workshop"
+        },
+        {
+            "type": "java",
+            "name": "Launch StatsGatherer 1",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
             "projectName": "kafka-workshop"
         },
         {
             "type": "java",
-            "name": "Launch BirthAnnouncer",
-            "request": "launch",
-            "mainClass": "com.zuhlke.kafkaworkshop.BirthAnnouncer",
-            "projectName": "kafka-workshop"
-        },        
-        {
-            "type": "java",
-            "name": "Launch StatsGatherer",
+            "name": "Launch StatsGatherer 2",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "projectName": "kafka-workshop"
+        },
+        {
+            "type": "java",
+            "name": "Launch StatsGatherer 3",
+            "request": "launch",
+            "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "projectName": "kafka-workshop"
+        },
+        {
+            "type": "java",
+            "name": "Launch StatsCombiner",
+            "request": "launch",
+            "mainClass": "com.zuhlke.kafkaworkshop.StatsCombiner",
             "projectName": "kafka-workshop"
         },
         {
@@ -34,8 +48,12 @@
     ],
     "compounds": [
         {
-            "name": "Compound",
-            "configurations": ["Launch BirthAnnouncer", "Launch StatsGatherer"]
+            "name": "Producer Consumer",
+            "configurations": ["Launch BirthAnnouncer", "Launch StatsGatherer 1"]
+        },
+        {
+            "name": "Consumer Group",
+            "configurations": ["Launch BirthAnnouncer", "Launch StatsGatherer 1", "Launch StatsGatherer 2", "Launch StatsGatherer 3", "Launch StatsCombiner"]
         }
     ]
 }

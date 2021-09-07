@@ -8,7 +8,6 @@ import java.util.Random;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
-import com.zuhlke.kafkaworkshop.Birth;
 
 public class WorldHealthOrganizationFacade {
     private final Faker faker = new Faker();

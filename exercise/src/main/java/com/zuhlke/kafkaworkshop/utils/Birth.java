@@ -1,4 +1,4 @@
-package com.zuhlke.kafkaworkshop;
+package com.zuhlke.kafkaworkshop.utils;
 
 import java.util.Date;
 
