@@ -11,6 +11,8 @@ RUN tar -C ~/.local/lib -xzf code-server-${code_server_version}-linux-amd64.tar.
 RUN mv ~/.local/lib/code-server-${code_server_version}-linux-amd64 ~/.local/lib/code-server-${code_server_version}
 RUN ln -s ~/.local/lib/code-server-${code_server_version}/bin/code-server /usr/bin
 
+RUN git config --global credential.helper store
+
 EXPOSE 8080
 
 CMD code-server --bind-addr 0.0.0.0:8080 --cert
