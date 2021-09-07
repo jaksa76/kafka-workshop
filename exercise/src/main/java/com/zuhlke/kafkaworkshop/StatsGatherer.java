@@ -5,6 +5,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -54,9 +55,10 @@ public class StatsGatherer extends Thread {
     }
     
     private void printTopTen() {
+        Comparator<Map.Entry<String, Long>> comparator = comparing(en -> en.getValue());
         log.info("Top 10 countries by babies born:");
         birthsByCountry.entrySet().stream()
-            .sorted(comparing(en -> en.getValue()))
+            .sorted(comparator.reversed())
             .limit(10)
             .forEach(en -> log.info(en.getValue() + ":\t" + en.getKey()));
     }

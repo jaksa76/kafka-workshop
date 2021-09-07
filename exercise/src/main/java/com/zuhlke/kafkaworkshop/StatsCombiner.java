@@ -57,6 +57,7 @@ public class StatsCombiner {
         }
         
         log.info("Top 10 countries by babies born:");
+        
         aggregatedStats.entrySet().stream()
             .sorted(comparing(en -> en.getValue()))
             .limit(10)

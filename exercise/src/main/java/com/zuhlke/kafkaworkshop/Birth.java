@@ -2,6 +2,8 @@ package com.zuhlke.kafkaworkshop;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class Birth {
     public final String name;
     public final Date time;
@@ -13,10 +15,11 @@ public class Birth {
         this.country = country;
     }
     
-    @Override public String toString() { return String.join(",", name, country, "" + time.getTime()); }
+    @Override public String toString() { 
+        return new Gson().toJson(this);
+    }
     
     public static Birth parse(String s) {
-        String[] parts = s.split(",");
-        return new Birth(parts[0], new Date(Long.valueOf(parts[2])), parts[1]);
+        return new Gson().fromJson(s, Birth.class);        
     }
 }
