@@ -3,6 +3,7 @@ package com.zuhlke.kafkaworkshop;
 import java.util.Map;
 
 import com.zuhlke.kafkaworkshop.utils.Birth;
+import com.zuhlke.kafkaworkshop.utils.KafkaUtils;
 import com.zuhlke.kafkaworkshop.utils.WorldHealthOrganizationFacade;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -14,10 +15,9 @@ public class BirthAnnouncer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(BirthAnnouncer.class);
     private WorldHealthOrganizationFacade who = new WorldHealthOrganizationFacade();
     
-    private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final String TOPIC = "births";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
-        "bootstrap.servers", BOOTSTRAP_SERVERS,
+        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
     ));

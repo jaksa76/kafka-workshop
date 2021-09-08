@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import com.github.javafaker.Faker;
 import com.zuhlke.kafkaworkshop.utils.Birth;
 import com.zuhlke.kafkaworkshop.utils.BirthStats;
+import com.zuhlke.kafkaworkshop.utils.KafkaUtils;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -19,14 +20,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StatsGatherer extends Thread {
-    private static final String BOOTSTRAP_SERVERS = "workshop-kafka.kafka:9092";
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private BirthStats stats = new BirthStats();
     private String name = Faker.instance().funnyName().name();
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
-        "bootstrap.servers", BOOTSTRAP_SERVERS,
+        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "group.id", "stats-gathering",
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
@@ -36,7 +36,7 @@ public class StatsGatherer extends Thread {
 
     private static final String STATS_TOPIC = "birth.stats";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
-        "bootstrap.servers", BOOTSTRAP_SERVERS,
+        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
     ));

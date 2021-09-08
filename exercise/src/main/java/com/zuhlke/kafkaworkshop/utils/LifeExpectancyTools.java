@@ -1,11 +1,12 @@
 package com.zuhlke.kafkaworkshop.utils;
 
+import java.util.Date;
 import java.util.Random;
 
-public class LifeExpectancyCalculator {
+public class LifeExpectancyTools {
     private Random rnd = new Random();
     
-    public double calculateLifeExpectancy() {
+    public int calculateLifeExpectancy(Date date) {
         try {
             Thread.sleep(5_000 + rnd.nextInt(5_000));
         } catch (InterruptedException e) {}
