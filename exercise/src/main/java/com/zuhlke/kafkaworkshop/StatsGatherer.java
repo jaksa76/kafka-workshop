@@ -2,6 +2,7 @@ package com.zuhlke.kafkaworkshop;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import java.net.InetAddress;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class StatsGatherer extends Thread {
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
-        "group.id", "stats-gathering",
+        "group.id", KafkaUtils.hostname(),
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "enable.auto.commit", "true",
