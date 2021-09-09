@@ -22,6 +22,10 @@
             h1 {
                 font-size: 72px;
             }
+            
+            .points {
+                font-size: 32;
+            }
 		</style>
     </head>
     <body lass="impress-not-supported">
@@ -31,7 +35,7 @@
         </div>
                 <!-- <div id="impress" data-autoplay="1" data-transition-duration="300"> -->
         <div id="impress">
-            <div id="background" class="step skip" data-scale="4" data-z="-1000">
+            <div id="background" class="step skip" data-scale="6" data-z="-1000">
                 <div class="nomnoml" style="opacity: 10%;">
                     [kafka]->[a]
                     [kafka]->[f]
@@ -101,12 +105,12 @@
                 </div>
             </div>
 
-            <div id="title" class="step" data-scale="1" data-rel-x="-2000" data-rel-y="-1500" data-z="0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <div id="title" class="step" data-scale="3" data-rel-x="-4000" data-rel-y="-2000" data-z="0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 <p>Introduction to</p>
 				<h1>Apache Kafka</h1>
             </div>
 
-            <div id="contents" class="step" data-rel-x="0" data-rel-y="1000">
+            <div id="contents" class="step" data-rel-x="0" data-rel-y="2000">
                 <div class="nomnoml">
                     [{actor} ' '] -> [Content |
                         [Introduction to Messaging] -> [Basic Kafka Concepts]
@@ -121,8 +125,8 @@
 #direction:right
                     [We will not Cover|                
                         [Kafka Streams]
-                        [Architectural Patterns]
-                        [Kafka Consistency]]
+                        [Kafka Connect]
+                    ]
                 </div>
             </div>
         
@@ -150,7 +154,7 @@
                 </div>
             </div>
         
-            <div id="types-of-messaging" class="step" data-rel-x="1000" data-y="-1000" data-scale="1">
+            <div id="types-of-messaging" class="step" data-rel-x="1500" data-y="0" data-scale="1">
                 <h1>Types of Messaging</h1>
             </div>
             <div class="step" data-rel-x="-200" data-rel-y="100" data-scale=".2">
@@ -202,7 +206,7 @@
                 </div>
             </div>
             
-            <div id="traditional-vs-kafka" class="step" data-rel-y="800">                
+            <div id="traditional-vs-kafka" class="step" data-rel-y="800" data-rel-x="-300">                
                 <h1>Traditional MQ Brokers<br>vs<br>Kafka</h1>
             </div>
             <div class="step"  data-rel-x="-200"  data-rel-y="250" data-rel-z="500" data-scale=".5">
@@ -226,7 +230,7 @@
                 </div>
             </div>
             
-            <div class="step" data-rel-x="1000" data-z="0"><h1>Kafka Concepts</h1></div>
+            <div id="concepts" class="step" data-rel-x="1000" data-rel-y="-1200" data-z="0"><h1>Kafka Concepts</h1></div>
             <div class="step" data-rel-x="-400" data-rel-y="200" data-rel-z="300" data-scale=".2">
                 <div class="nomnoml">
                     [Record|timestamp; key; value]
@@ -305,7 +309,7 @@
                 </div>
             </div>
 
-            <div class="step" id="exercise-1" data-rel-x="0" data-rel-y="1000">
+            <div class="step" id="exercise-1" data-rel-x="0" data-rel-y="1000"  data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
                     [Exercise 1: Hello World! | 
@@ -322,7 +326,7 @@
                     ]
                 </div>
             </div>
-            <div class="step" id="exercise-2" style="padding: 0;" data-rel-y="1000">
+            <div class="step" id="exercise-2" style="padding: 0;" data-rel-y="2000"  data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
                     [Exercise 2: And the winner is... | 
@@ -336,7 +340,11 @@
                 </div>
             </div>            
             
-            <div class="step" data-rel-x="2000" data-rel-y="0">
+            <div id="scalability" class="step" data-x="2500" data-y="-2500" data-z="0" data-scale="5">
+                <h1>Scalability</h1>
+            </div>
+
+            <div id="partitons" class="step" data-rel-x="-1500" data-rel-y="1200">
                 <h1>Partitions and Replication</h1>
                 <div class="nomnoml" style="margin: 0;">
                     [{table} cluster |
@@ -357,7 +365,7 @@
                 </div>
             </div>
             
-            <div class="step" data-rel-x="2000" data-rel-z="0">
+            <div id="consumer-groups" class="step" data-rel-x="2000" data-rel-z="0">
                 <h1>Consumer Groups</h1>
                 <div class="nomnoml" style="margin: 0;">
 #direction: right                    
@@ -380,16 +388,15 @@
                 </div>
             </div>
             
-            <div class="step" data-rel-x="2000">
-                <h1>Consumer Groups (2)</h1>
+            <div class="step" data-rel-y="350" data-rel-x="-300" data-scale="1">
                 <div style="font-size: 20; text-align: left; margin-left: 100;">
                     consumers are allowed to choose partition and offset<br>
                     typically Kafka assigns a consumer for each partition<br>
                 </div>
             </div>
-            <div class="step" data-rel-x="-200" data-rel-y="300" data-scale=".4">
+            <div class="step" data-rel-x="-220" data-rel-y="170" data-scale=".3">
                 <h2>multiple partitions can be assigned to the same Consumer</h2>
-                <div class="nomnoml substep">
+                <div class="nomnoml">
 #direction: right                    
 #fontSize: 18
                     [partiton 1]->[consumer 1]
@@ -398,9 +405,9 @@
                     [partiton 4]->[consumer 3]
                 </div>
             </div>
-            <div class="step" data-rel-x="400" data-rel-y="0" data-scale=".4">
+            <div class="step" data-rel-x="300" data-rel-y="0" data-scale=".3">
                 <h2>...or consumers may not have a partition assigned</h2>
-                <div class="nomnoml substep">
+                <div class="nomnoml">
 #direction: right                    
 #fontSize: 18
                     [consumer 1]<-[partiton 1]
@@ -410,7 +417,7 @@
                 </div>
             </div>
             
-            <div class="step" data-rel-x="2000">
+            <div class="step" data-rel-x="-200" data-rel-y="800">
                 <h1>Producers</h1>
                 <div class="nomnoml" style="margin: auto;">
                     [choosing a partition | 
@@ -420,8 +427,8 @@
                     ]
                 </div>
             </div>
-            
-            <div class="step" id="exercise-3">
+                        
+            <div class="step" id="exercise-3" data-rel-x="0" data-rotate-x="90" data-z="1000">
                 <div class="nomnoml" style="margin: auto;">
 #fontSize: 18
                     [Exercise 3: A lot of babies | 
@@ -440,11 +447,11 @@
                 </div>
             </div>         
             
-            <div class="step">
+            <div id="fault-tolerance" class="step" data-x="1000" data-y="1000" data-z="0" data-scale="5">
                 <h1>Fault Tolerance</h1>
             </div>
             
-            <div class="step">
+            <div id="exactly-once-delivery" class="step" data-rel-x="-2000" data-rel-y="1000" data-scale=".5" style="font-size: 36;">
                 <h1>Exactly-Once Delivery</h1>
                 <br>
                 <div class="substep">                    
@@ -458,52 +465,38 @@
                 </div>
             </div>
             
-            <div class="step">
+            <div id="replicas" class="step" data-rel-x="1000" data-rel-y="0" data-scale=".5" style="font-size: 36;">
                 <h1>Replicas</h1>
                 <br>
-                <div class="substep">                    
+                <div class="points">                    
                     Partitons can be replicated<br><br>
-                </div>
-                <div class="substep">
                     For each partition there will be a broker that acts as a leader<br><br>
-                </div>
-                <div class="substep">
                     Leader election, as well as changes to cluster status are tracked by zookeeper<br><br>
-                </div>
-                <div class="substep">
                     Zookeeper is strongly consistent<br><br>
                 </div>
             </div>
             
-            <div class="step">
+            <div id="replicaiton" class="step" data-scale=".5" style="font-size: 36;">
                 <h1>Replication</h1>
                 <br>
-                <div class="substep">                    
+                <div class="points">                    
                     A subset of replicas are kept "in-sync"<br><br>
-                </div>
-                <div class="substep">
                     When the leader receives a message, it will broadcast the changes to all replicas and await all “in-sync” replicas to confirm before sending the ack to the client<br><br>
-                </div>
-                <div class="substep">
                     Upon leader crash, only an “in-sync” replica can become the new leader<br><br>
                 </div>
             </div>
 
-            <div class="step">
+            <div class="step" data-scale=".5" style="font-size: 36;">
                 <h1>Consumers</h1>
                 <br>
-                <div class="substep">                    
+                <div class="points">
                     Consumers always read from the leader<br><br>
-                </div>
-                <div class="substep">
                     Consumers periodically “commit” – tell Kafka what was the last consumed message<br><br>
-                </div>
-                <div class="substep">
                     A crashed consumer will start receiving messages since the last commit upon recovery<br><br>
                 </div>
             </div>
 
-            <div class="step" id="exercise-4">
+            <div class="step" id="exercise-4" data-rel-x="0" data-rel-y="1000" data-rel-z="500" data-rotate-x="90">
                 <div class="nomnoml" style="margin: auto;">
 #fontSize: 18
 #direction: right
@@ -518,27 +511,35 @@
                 </div>
             </div>         
             
-            <div class="step">
+            <div id="transactions" class="step" data-rel-x="2000" data-rel-y="-1000" data-z="0" data-scale="1.5">
                 <h1>Transactions</h1>
                 <br>
-                <div class="substep">                    
+                <div class="points">                    
                     A number of messages can be grouped in a transaction<br><br>
-                </div>
-                <div class="substep">
                     Sending messages enclosed in beginTransaction() & commitTransaction()<br><br>
-                </div>
-                <div class="substep">
                     Transactions can span different partitions and topics<br><br>
-                </div>
-                <div class="substep">
                     Records in a transaction are delivered atomically<br><br>
-                </div>
-                <div class="substep">
                     If the producer crashes the transaction is rolled back<br><br>
                 </div>
             </div>
 
-            <div class="step" data-rel-x="2000">
+            <div id="exercise-5" class="step" data-rel-x="0" data-rel-y="1000" data-rel-z="500" data-rotate-x="90">
+                <div class="nomnoml">
+#fontSize: 18
+                    [Exercise 5: No baby lost | 
+                    Refactor StatsGatherer 
+                    to use transactions |
+                        [enable transactions] -> [consume messages in a tx]
+                        [consume messages in a tx] -> [send stats in the same tx]
+                        [send stats in the same tx] -> [commit offset in tx]
+                    ]
+                    [Exercise 5: No baby lost] -- [Hints: |
+                        get rid of background task
+                    ]
+                </div>
+            </div>
+
+            <div class="step" data-x="-3000" data-y="4000" data-z="0">
                 <div class="nomnoml">
                 [TODO|
                 idempotence
@@ -547,13 +548,7 @@
                 </div>
             </div>
             
-            <div class="step">       
-                <div class="nomnoml">
-                    Transactions
-                </div>
-            </div>
-            
-            <div class="step">
+            <div class="step" data-rel-x="1000">
                 <div class="nomnoml">
                 Request Response (anti)pattern
                 anonymous life expectancy
@@ -566,7 +561,7 @@
                 </div>
             </div>
             
-            <div class="step" data-rel-x="6000">
+            <!-- <div class="step" data-rel-x="6000">
                 <h1>Chaos Engineering</h1>
                 <div class="nomnoml" style="padding: 50px">
                     [producer 1] -> [chaos-test]
@@ -580,9 +575,9 @@
                     [consumer 3] -> [chaos-results]
                     [chaos-results] -> [results collector]							
                 </div>		
-            </div>
+            </div> -->
             
-            <div class="step" data-x="0" data-y="0" data-z="5000">
+            <div id="questions" class="step" data-x="0" data-y="0" data-z="3000" data-scale="4">
                 <h1 class="substep">Questions?</h1>
             </div>
             
