@@ -2,21 +2,17 @@ package com.zuhlke.kafkaworkshop;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import java.net.InetAddress;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
-import com.github.javafaker.Faker;
 import com.zuhlke.kafkaworkshop.utils.Birth;
 import com.zuhlke.kafkaworkshop.utils.BirthStats;
 import com.zuhlke.kafkaworkshop.utils.KafkaUtils;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +22,6 @@ import org.slf4j.LoggerFactory;
 public class StatsGatherer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private BirthStats stats = new BirthStats();
-    private String name = Faker.instance().funnyName().name();
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
