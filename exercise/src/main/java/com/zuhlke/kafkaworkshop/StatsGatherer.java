@@ -20,6 +20,9 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Keeps track of total births by country.
+ */
 public class StatsGatherer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private BirthStats stats = new BirthStats();
