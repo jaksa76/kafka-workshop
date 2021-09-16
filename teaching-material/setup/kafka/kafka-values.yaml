@@ -1,9 +1,0 @@
-# this is the values customization file for the bitnami/kafka helm chart
-# it is used by setup.sh
-
-numPartitions: 3
-replicaCount: 3
-deleteTopicEnable: true
-persistence:
-  size: 32Gi
-#defaultReplicationFactor: 3
