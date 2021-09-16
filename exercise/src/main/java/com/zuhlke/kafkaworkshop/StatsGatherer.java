@@ -24,14 +24,6 @@ public class StatsGatherer extends Thread {
     private BirthStats stats = new BirthStats();
     
     private static final String TOPIC = "births";
-    private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
-        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
-        "group.id", KafkaUtils.hostname(),
-        "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-        "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-        "enable.auto.commit", "true",
-        "auto.commit.interval.ms", "1000"
-    ));
 
     public StatsGatherer() {
         // periodically print statistics
@@ -44,12 +36,7 @@ public class StatsGatherer extends Thread {
     
     @Override
     public void run() {
-        consumer.subscribe(Arrays.asList(TOPIC));
-        while (true) {
-            for (ConsumerRecord<String, String> record : consumer.poll(Duration.ofMillis(100))) {
-                stats.addBirth(Birth.parse(record.value()));
-            }
-        }
+        // TODO: collect births from Kafka
     }
 
     private void printTopTen() {
