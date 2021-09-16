@@ -16,11 +16,6 @@ public class BirthAnnouncer extends Thread {
     private WorldHealthOrganizationFacade who = new WorldHealthOrganizationFacade();
     
     private static final String TOPIC = "births";
-    private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
-        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
-        "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
-        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
-    ));
 
     public static void main(String[] args) {
         new BirthAnnouncer().start();
@@ -37,6 +32,5 @@ public class BirthAnnouncer extends Thread {
     
     private void announceBirth(Birth birth) {
         log.info("{} was born in {} on {}", birth.name, birth.country, birth.time.toString());        
-        producer.send(new ProducerRecord<String, String>(TOPIC, birth.toString()));
     }
 }
