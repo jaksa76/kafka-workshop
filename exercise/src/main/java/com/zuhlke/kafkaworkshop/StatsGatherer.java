@@ -38,13 +38,6 @@ public class StatsGatherer extends Thread {
         "auto.commit.interval.ms", "1000"
     ));
 
-    private static final String STATS_TOPIC = "birth.stats";
-    private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
-        "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
-        "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
-        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
-    ));
-
     public StatsGatherer() {
         // periodically print statistics
         Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(() -> printTopTen(), 0, 10, SECONDS);
@@ -66,6 +59,5 @@ public class StatsGatherer extends Thread {
 
     private void printTopTen() {
         log.info("Top 10 countries by babies born:\n" + stats.getTopTenAsString());
-        producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
     }
 }
