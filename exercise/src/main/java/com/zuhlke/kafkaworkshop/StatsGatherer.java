@@ -62,7 +62,7 @@ public class StatsGatherer extends Thread {
     }
 
     private void printTopTen() {
-        log.info("Top 10 countries by babies born:\n" + stats.printTopTen());
+        log.info("Top 10 countries by babies born:\n" + stats.getTopTenAsString());
         producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
     }
 }

@@ -23,6 +23,10 @@
                 font-size: 72px;
             }
             
+            pre {
+                font-family: 'Courier New', Courier, monospace;
+            }
+            
             .points {
                 font-size: 32;
             }
@@ -123,7 +127,8 @@
             <div id="contents-will-not-cover" class="step" data-scale="0.05" data-rel-y="330" >
                 <div class="nomnoml">
 #direction:right
-                    [We will not Cover|                
+                    [We will not Cover|
+                        [Security]
                         [Kafka Streams]
                         [Kafka Connect]
                     ]
@@ -308,8 +313,22 @@
                     [Kafka Cluster] -> [Consumer 3]
                 </div>
             </div>
-
-            <div class="step" id="exercise-1" data-rel-x="0" data-rel-y="1000"  data-rotate-x="90">
+            
+            <div class="step" data-rel-x="100" data-rel-y="0" data-scale="0.01">
+                <pre>
+bootstrap.servers
+                </pre>
+            </div>
+            <div class="step" data-rel-x="0" data-rel-y="10" data-scale="0.01">
+                <pre>
+key.serializer
+value.serializer
+key.deserializer
+value.deserializer
+                </pre>                                    
+            </div>
+            
+            <div class="step" id="exercise-1" data-rel-x="-500" data-rel-y="1000" data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
                     [Exercise 1: Hello World! | 
@@ -326,7 +345,8 @@
                     ]
                 </div>
             </div>
-            <div class="step" id="exercise-2" style="padding: 0;" data-rel-y="2000"  data-rotate-x="90">
+            
+            <div class="step" id="exercise-2" style="padding: 0;" data-rel-x="0" data-rel-y="2000"  data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
                     [Exercise 2: And the winner is... | 
@@ -339,8 +359,21 @@
                     ]
                 </div>
             </div>            
+
+            <div class="step" data-rel-x="0" data-rel-y="500" data-scale="0.01">
+                <pre>
+enable.auto.commit
+auto.commit.interval.ms
+                </pre>
+            </div>
+            <div class="step" data-rel-x="0" data-rel-y="100" data-scale="0.01">
+                <pre>
+group.id                    
+                </pre>
+            </div>
             
-            <div id="scalability" class="step" data-x="1800" data-y="-2200" data-z="-2000" data-scale="5" data-rotate-z="-90">
+
+            <div id="scalability" class="step" data-x="700" data-y="-2200" data-z="-2000" data-scale="5">
                 <h1>Scalability</h1>
             </div>
 
@@ -365,7 +398,7 @@
                 </div>
             </div>
             
-            <div id="consumer-groups" class="step" data-rel-x="-1000" data-rel-y="1000" data-rel-z="0">
+            <div id="consumer-groups" class="step" data-rel-x="-900" data-rel-y="1000" data-rel-z="0">
                 <h1>Consumer Groups</h1>
                 <div class="nomnoml" style="margin: 0;">
 #direction: right                    
@@ -416,8 +449,27 @@
                     [consumer 4]
                 </div>
             </div>
+
             
-            <div class="step" data-rel-x="-200" data-rel-y="600">
+            <div class="step" data-rel-x="1000" data-scale=".2">
+                <h1>Consumer Timeouts</h1>
+                <br>
+                <div class="points">                    
+                    heartbeat & throughput<br>                    
+                    a slow consumer is excluded from the group<br>
+                    default timeout is 5 minutes                                        
+                </div>
+                <br>
+                <h2 class="substep">Low Group Capacity</h2>
+                <br>
+                <div class="substep points">                    
+                    things get bad and then worse<br>                    
+                    low number of partitions<br>
+                    <p class="substep">store messages and process asynchronously</p>
+                </div>
+            </div>
+            
+            <div class="step" data-rel-x="-1500" data-rel-y="600">
                 <h1>Producers</h1>
                 <div class="nomnoml" style="margin: auto;">
                     [choosing a partition | 
@@ -511,7 +563,7 @@
                 </div>
             </div>         
             
-            <div id="transactions" class="step" data-rel-x="2000" data-rel-y="-1500" data-z="0" data-scale="1.5">
+            <div id="transactions" class="step" data-x="3500" data-y="1000" data-z="0" data-scale="1.5">
                 <h1>Transactions</h1>
                 <br>
                 <div class="points">                    
@@ -523,13 +575,48 @@
                 </div>
             </div>
 
+            <div id="exactly-once-processing" class="step" data-rel-x="1000" data-rel-y="-200" data-scale=".5">
+                <h1>Exactly Once Delivery</h1>
+                <div class="nomnoml">                    
+                    [producer] -> [log]
+                </div>
+                <div class="points">
+                    Each message sent is written to the log exactly once
+                    Does not apply to consumers
+                </div>
+            </div>            
+            <div class="step" data-rel-x="0" data-rel-y="500" data-scale=".5">
+                <h1>Exactly Once Processing</h1>
+                <div class="nomnoml">
+                    [topic A] -> [processor]
+                    [processor] -> [topic B]
+                    [processor] -> [topic C]
+                </div>
+                <div class="points">
+                    Each message is "processed" exactly once<br>
+                    Message(s) produced iff message(s) consumed<br>
+                    Does not apply to side effects like DB
+                </div>            
+            </div>
+            <div class="step" data-scale=".1">
+                <pre>
+transactional.id
+                </pre>
+            </div>
+            <div class="step" data-scale=".1">
+                <pre>
+isolation.level=read_committed
+                </pre>
+            </div>
+
+            
             <div id="exercise-5" class="step" data-rel-x="0" data-rel-y="1000" data-rel-z="500" data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
                     [Exercise 5: No baby lost | 
                     Refactor StatsGatherer 
                     to use transactions |
-                        [enable transactions] -> [consume messages in a tx]
+                        [initialize transactions] -> [consume messages in a tx]
                         [consume messages in a tx] -> [send stats in the same tx]
                         [send stats in the same tx] -> [commit offset in tx]
                     ]
@@ -542,8 +629,6 @@
             <div class="step" data-x="-3000" data-y="4000" data-z="0">
                 <div class="nomnoml">
                 [TODO|
-                idempotence
-                transactions
                 consumer timeout]
                 </div>
             </div>

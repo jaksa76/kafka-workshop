@@ -19,7 +19,7 @@ public class BirthStats {
         });
     }
 
-    synchronized public String printTopTen() {
+    synchronized public String getTopTenAsString() {
         Comparator<Map.Entry<String, Long>> comparator = Comparator.comparing(en -> en.getValue());
         StringBuilder stats = new StringBuilder();
         birthsByCountry.entrySet().stream()

@@ -21,7 +21,6 @@ public class StatsCombiner {
     private static final String TOPIC = "birth.stats";
 
     public static void main(String[] args) {
-        Thread.currentThread().setName("stats-combiner");
         Map<String, BirthStats> statsByCollector = new HashMap<>();
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
@@ -48,6 +47,6 @@ public class StatsCombiner {
     private static void printStats(Map<String, BirthStats> statsByCollector) {
         BirthStats aggregatedStats = new BirthStats();                
         statsByCollector.values().stream().forEach(aggregatedStats::addAll);
-        log.info("Aggregated top 10 countries by babies born:\n" + aggregatedStats.printTopTen());
+        log.info("Aggregated top 10 countries by babies born:\n" + aggregatedStats.getTopTenAsString());
     }
 }
