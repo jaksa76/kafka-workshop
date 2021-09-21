@@ -21,7 +21,8 @@ public class BirthAnnouncer extends Thread {
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "value.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "acks", "all",
-        "enable.idempotence", "true"
+        "enable.idempotence", "true",
+        "transactional.id", KafkaUtils.hostname() + "-announcer"
     ));
 
     public static void main(String[] args) {
@@ -30,10 +31,13 @@ public class BirthAnnouncer extends Thread {
     
     @Override
     public void run() {
+        producer.initTransactions(); // this must be done before using transactions
         while (true) {
+            producer.beginTransaction();
             for (Birth birth : who.getBirths()) {                
                 announceBirth(birth);
             }
+            producer.commitTransaction();
         }
     }
     
