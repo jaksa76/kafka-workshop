@@ -19,7 +19,9 @@ public class BirthAnnouncer extends Thread {
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
-        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
+        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer",
+        "acks", "all",
+        "enable.idempotence", "true"
     ));
 
     public static void main(String[] args) {

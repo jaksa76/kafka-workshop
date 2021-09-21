@@ -28,8 +28,7 @@ public class StatsCombiner {
             "group.id", "combiner",
             "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
             "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-            "enable.auto.commit", "true",
-            "auto.commit.interval.ms", "1000"
+            "enable.auto.commit", "false"
         ));
         consumer.subscribe(asList(TOPIC));
         
@@ -41,6 +40,7 @@ public class StatsCombiner {
                 BirthStats stats = BirthStats.parse(record.value());
                 statsByCollector.put(collector, stats);
             }
+            consumer.commitSync();
         }
     }
     

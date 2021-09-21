@@ -34,15 +34,16 @@ public class StatsGatherer extends Thread {
         "group.id", KafkaUtils.hostname(),
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-        "enable.auto.commit", "true",
-        "auto.commit.interval.ms", "1000"
+        "enable.auto.commit", "false"        
     ));
 
     private static final String STATS_TOPIC = "birth.stats";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
-        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer"
+        "value.serializer", "org.apache.kafka.common.serialization.StringSerializer",
+        "acks", "all",
+        "enable.idempotence", "true"
     ));
 
     public StatsGatherer() {
@@ -61,6 +62,7 @@ public class StatsGatherer extends Thread {
             for (ConsumerRecord<String, String> record : consumer.poll(Duration.ofMillis(100))) {
                 stats.addBirth(Birth.parse(record.value()));
             }
+            consumer.commitSync();
         }
     }
 
