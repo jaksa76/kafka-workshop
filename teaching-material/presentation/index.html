@@ -30,6 +30,10 @@
             .points {
                 font-size: 32;
             }
+            
+            .impress-enabled .step {
+                opacity: 0.2;
+            }
 		</style>
     </head>
     <body lass="impress-not-supported">
@@ -315,11 +319,25 @@
             </div>
             
             <div class="step" data-rel-x="100" data-rel-y="0" data-scale="0.01">
+                <h1>connecting to the cluster</h1>
+                <br>
+                <div>
+                    clients connect to the Kafka cluster by connecting to one of the brokers<br>
+                    after that they receive the list of all brokers
+                </div>
+                <br>
                 <pre>
 bootstrap.servers
                 </pre>
             </div>
             <div class="step" data-rel-x="0" data-rel-y="10" data-scale="0.01">
+                <h1>message serialization</h1>
+                <br>
+                <div>
+                    kafka transmits arrays of bytes<br>
+                    you are supposed to specify the serializer/deserializer
+                </div>
+                <br>
                 <pre>
 key.serializer
 value.serializer
@@ -345,6 +363,26 @@ value.deserializer
                     ]
                 </div>
             </div>
+
+            <div class="step" data-rel-x="0" data-rel-y="1500" data-scale="0.01">
+                <h1>keeping track of read messages</h1>
+                <br>
+                <div>
+                    consumers send acks "in batches"<br>
+                    this can be done manually or automatically
+                </div>
+                <br>
+                <pre>
+enable.auto.commit
+auto.commit.interval.ms
+                </pre>
+            </div>
+            <div class="step" data-rel-x="0" data-rel-y="100" data-scale="0.01">
+                <pre>
+group.id                    
+                </pre>
+            </div>
+
             
             <div class="step" id="exercise-2" style="padding: 0;" data-rel-x="0" data-rel-y="2000"  data-rotate-x="90">
                 <div class="nomnoml">
@@ -360,17 +398,6 @@ value.deserializer
                 </div>
             </div>            
 
-            <div class="step" data-rel-x="0" data-rel-y="500" data-scale="0.01">
-                <pre>
-enable.auto.commit
-auto.commit.interval.ms
-                </pre>
-            </div>
-            <div class="step" data-rel-x="0" data-rel-y="100" data-scale="0.01">
-                <pre>
-group.id                    
-                </pre>
-            </div>
             
 
             <div id="scalability" class="step" data-x="700" data-y="-2200" data-z="-2000" data-scale="5">
@@ -613,14 +640,14 @@ isolation.level=read_committed
             <div id="exercise-5" class="step" data-rel-x="0" data-rel-y="1000" data-rel-z="500" data-rotate-x="90">
                 <div class="nomnoml">
 #fontSize: 18
-                    [Exercise 5: No baby lost | 
+                    [Exercise 5: Transactions | 
                     Refactor StatsGatherer 
                     to use transactions |
                         [initialize transactions] -> [consume messages in a tx]
                         [consume messages in a tx] -> [send stats in the same tx]
                         [send stats in the same tx] -> [commit offset in tx]
                     ]
-                    [Exercise 5: No baby lost] -- [Hints: |
+                    [Exercise 5: Transactions] -- [Hints: |
                         get rid of background task
                     ]
                 </div>

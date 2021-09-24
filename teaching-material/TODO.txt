@@ -1,9 +1,8 @@
-solve exercise-5
-separate topics
-
+recheck exercise explanations
 request response pattern slides
 aggregator pattern slides
 
-
 automate git checkout
+automate vscode plugin installation
+automate 
 
