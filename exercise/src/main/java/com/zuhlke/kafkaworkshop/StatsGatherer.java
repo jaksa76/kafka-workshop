@@ -37,8 +37,7 @@ public class StatsGatherer extends Thread {
         "group.id", KafkaUtils.hostname(),
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-        "enable.auto.commit", "false",
-        "isolation.level", "read_committed"
+        "enable.auto.commit", "false"
     ));
 
     private static final String STATS_TOPIC = KafkaUtils.studentName() + ".birth.stats";
@@ -47,8 +46,7 @@ public class StatsGatherer extends Thread {
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "value.serializer", "org.apache.kafka.common.serialization.StringSerializer",
         "acks", "all",
-        "enable.idempotence", "true",
-        "transactional.id", KafkaUtils.hostname() + "-gatherer-" + name
+        "enable.idempotence", "true"
     ));
 
     public StatsGatherer() {
@@ -65,19 +63,16 @@ public class StatsGatherer extends Thread {
     @Override
     public void run() {
         consumer.subscribe(Arrays.asList(TOPIC));
-        producer.initTransactions();
         while (true) {
-            producer.beginTransaction();
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
                 stats.addBirth(Birth.parse(record.value()));
             }
-            producer.sendOffsetsToTransaction(getOffsetsToCommit(records), STATS_TOPIC);
-            producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
-            producer.commitTransaction();
+            consumer.commitSync();            
         }
     }
 
+    // this may be helpful
     private Map<TopicPartition, OffsetAndMetadata> getOffsetsToCommit(ConsumerRecords<String, String> records) {
         Map<TopicPartition, OffsetAndMetadata> offsetsToCommit = new HashMap<>();
         for (TopicPartition partition : records.partitions()) {
@@ -90,6 +85,7 @@ public class StatsGatherer extends Thread {
     }
     
     private void printTopTen() {
+        producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
         log.info("Top 10 countries by babies born:\n" + stats.getTopTenAsString());        
     }
 }
