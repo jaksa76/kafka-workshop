@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class StatsCombiner {    
     private static final Logger log = LoggerFactory.getLogger(BirthStats.class);
-    private static final String TOPIC = "birth.stats";
+    private static final String TOPIC = KafkaUtils.studentName() + ".birth.stats";
 
     public static void main(String[] args) {
         Map<String, BirthStats> statsByCollector = new HashMap<>();

@@ -28,7 +28,7 @@ public class StatsGatherer extends Thread {
     private BirthStats stats = new BirthStats();
     private String name = Faker.instance().funnyName().name();
     
-    private static final String TOPIC = "births";
+    private static final String TOPIC = KafkaUtils.studentName() + ".births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "group.id", KafkaUtils.hostname(),
@@ -38,7 +38,7 @@ public class StatsGatherer extends Thread {
         "auto.commit.interval.ms", "1000"
     ));
 
-    private static final String STATS_TOPIC = "birth.stats";
+    private static final String STATS_TOPIC = KafkaUtils.studentName() + ".birth.stats";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
