@@ -15,7 +15,7 @@ public class BirthAnnouncer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(BirthAnnouncer.class);
     private WorldHealthOrganizationFacade who = new WorldHealthOrganizationFacade();
     
-    private static final String TOPIC = "births";
+    private static final String TOPIC = KafkaUtils.studentName() + ".births";
 
     public static void main(String[] args) {
         new BirthAnnouncer().start();
