@@ -16,6 +16,7 @@
             "name": "Launch StatsGatherer 1",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "args": ["1"],
             "projectName": "kafka-workshop"
         },
         {
@@ -23,6 +24,7 @@
             "name": "Launch StatsGatherer 2",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "args": ["2"],
             "projectName": "kafka-workshop"
         },
         {
@@ -30,6 +32,7 @@
             "name": "Launch StatsGatherer 3",
             "request": "launch",
             "mainClass": "com.zuhlke.kafkaworkshop.StatsGatherer",
+            "args": ["3"],
             "projectName": "kafka-workshop"
         },
         {

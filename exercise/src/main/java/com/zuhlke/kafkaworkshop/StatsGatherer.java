@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
  */
 public class StatsGatherer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
+    private static String name;
     private BirthStats stats = new BirthStats();
-    private String name;
     
     private static final String TOPIC = "births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
@@ -37,7 +37,8 @@ public class StatsGatherer extends Thread {
         "group.id", KafkaUtils.hostname(),
         "key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
         "value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer",
-        "enable.auto.commit", "false"        
+        "enable.auto.commit", "false",
+        "isolation.level", "read_committed"
     ));
 
     private static final String STATS_TOPIC = "birth.stats";
@@ -50,17 +51,15 @@ public class StatsGatherer extends Thread {
         "transactional.id", KafkaUtils.hostname() + "-gatherer-" + name
     ));
 
-    public StatsGatherer(String name) {
-        // the name now has to be the same even if the gatherer is restarted
-        this.name = name;
-        
+    public StatsGatherer() {
         // periodically print statistics
         Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(() -> printTopTen(), 0, 10, SECONDS);
     }
     
     public static void main(String[] args) {
         if (args.length < 1) throw new IllegalArgumentException("Please supply the gatherer name as first argument.");        
-        new StatsGatherer(args[0]).start();
+        name = args[0]; // the name now has to be the same even if the gatherer is restarted
+        new StatsGatherer().start();
     }
     
     @Override
@@ -74,6 +73,7 @@ public class StatsGatherer extends Thread {
                 stats.addBirth(Birth.parse(record.value()));
             }
             producer.sendOffsetsToTransaction(getOffsetsToCommit(records), STATS_TOPIC);
+            producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
             producer.commitTransaction();
         }
     }
@@ -90,7 +90,6 @@ public class StatsGatherer extends Thread {
     }
     
     private void printTopTen() {
-        log.info("Top 10 countries by babies born:\n" + stats.getTopTenAsString());
-        producer.send(new ProducerRecord<String,String>(STATS_TOPIC, name, stats.toString()));
+        log.info("Top 10 countries by babies born:\n" + stats.getTopTenAsString());        
     }
 }
