@@ -23,7 +23,7 @@ public class StatsGatherer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private BirthStats stats = new BirthStats();
     
-    private static final String TOPIC = "births";
+    private static final String TOPIC = KafkaUtils.studentName() + ".births";
 
     public StatsGatherer() {
         // periodically print statistics

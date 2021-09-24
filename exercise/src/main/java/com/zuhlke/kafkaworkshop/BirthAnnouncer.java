@@ -15,7 +15,7 @@ public class BirthAnnouncer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(BirthAnnouncer.class);
     private WorldHealthOrganizationFacade who = new WorldHealthOrganizationFacade();
     
-    private static final String TOPIC = "births";
+    private static final String TOPIC = KafkaUtils.studentName() + ".births";
     private KafkaProducer<String, String> producer = new KafkaProducer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "key.serializer", "org.apache.kafka.common.serialization.StringSerializer",
