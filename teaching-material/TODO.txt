@@ -1,10 +1,9 @@
-solve exercise-4
 solve exercise-5
+separate topics
 
 request response pattern slides
 aggregator pattern slides
 
-parameterize dev env
-automate password extraction for devenv
+
 automate git checkout
 

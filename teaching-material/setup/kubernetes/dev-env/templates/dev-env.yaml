@@ -1,4 +1,29 @@
+
 {{range $i, $user := .Values.users}}
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata: 
+#   name: {{$user}}-pv
+# spec:
+#   capacity:
+#     storage: 1Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   awsElasticBlockStore:
+#     volumeID: {{$user}}-ebs
+#     fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+  name: {{$user}}-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,9 +44,16 @@ spec:
       - name: {{$user}}-dev-env
         image: jaksa76/dev-env
         imagePullPolicy: Always
+        volumeMounts:
+        - name: {{$user}}-volume
+          mountPath: /root/workspace
         ports:
         - containerPort: 22
         - containerPort: 8080       
+      volumes:
+      - name: {{$user}}-volume
+        persistentVolumeClaim:
+          claimName: {{$user}}-pvc
 ---        
 {{end}}
 
