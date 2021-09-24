@@ -23,7 +23,7 @@ public class StatsGatherer extends Thread {
     private static final Logger log = LoggerFactory.getLogger(StatsGatherer.class);
     private BirthStats stats = new BirthStats();
     
-    private static final String TOPIC = "births";
+    private static final String TOPIC = KafkaUtils.studentName() + ".births";
     private KafkaConsumer<String, String> consumer = new KafkaConsumer<>(Map.of(
         "bootstrap.servers", KafkaUtils.BOOTSTRAP_SERVERS,
         "group.id", KafkaUtils.hostname(),
