@@ -124,8 +124,8 @@
                         [Introduction to Messaging] -> [Basic Kafka Concepts]
                         [Basic Kafka Concepts] -> [How to Use Kafka]
                         [How to Use Kafka] -> [How Kafka achieves Scalability]
-                        [How Kafka achieves Scalability] -> [How Kaka Achieves Fault Tolerance]
-                        [How Kaka Achieves Fault Tolerance] -> [Transactions]]
+                        [How Kafka achieves Scalability] -> [How Kafka Achieves Fault Tolerance]
+                        [How Kafka Achieves Fault Tolerance] -> [Transactions]]
                 </div>
             </div>
             <div id="contents-will-not-cover" class="step" data-scale="0.05" data-rel-y="330" >
@@ -625,12 +625,20 @@ group.id
                     Does not apply to side effects like DB
                 </div>            
             </div>
-            <div class="step" data-scale=".1">
+            <div class="step" data-scale=".1">                
+                <h1>zombie producers</h1><br><br>
+                <div>if a producer is suspected dead a new one may be started<br><br>
+                    multiple instances of the same producer
+                </div><br><br>
                 <pre>
 transactional.id
                 </pre>
             </div>
             <div class="step" data-scale=".1">
+                <h1>consuming transactions</h1><br><br>
+                <div>
+                    data is written to the log before a transaction is committed<br><br>
+                    consumers will read all data by default</div><br><br>
                 <pre>
 isolation.level=read_committed
                 </pre>
@@ -654,15 +662,16 @@ isolation.level=read_committed
             </div>
 
             <div class="step" data-rel-x="1000">
+                <h1>Hypothetical Scenario 1</h1>
                 <div class="nomnoml">
-                Request Response (anti)pattern
-                anonymous life expectancy
+                What if we wanted to estimate life expectancy?
+                life expactancy calculator is a separate service
                 </div>
             </div>
             <div class="step">
+                <h1>Hypothetical Scenario 2</h1>
                 <div class="nomnoml">
-                Aggregation
-                reconstructing identity of life expectancy
+                Parents can ask for child benefits
                 </div>
             </div>
             
